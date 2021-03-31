@@ -1,55 +1,52 @@
 <template>
-   <div class="ma=0">
+  <div >
       <v-navigation-drawer
       v-model="drawer"
       absolute
       temporary
       color="#F7F5EB" 
-      >     
-      <v-list>
-
-        <v-list-item> 
-          <v-list-item-content class="ma-0 pa-0">
-            <v-list-item-title class="mx-4 text-h6">          
-              Food Bridge
-            </v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-
-        <v-divider></v-divider>
-       
-        <v-list-item-group
-          v-model="selectedItem"
-          color="primary"
-        >
-          <v-list-item
-            color="red"
-            v-for="(item, i) in items"
-            :key="i"
-            class="ma-0"
-            link router :to="item.route"
-          >
-            <v-list-item-icon>
-              <span class="material-icons">
-                {{ item.icon }}
-              </span>
-            </v-list-item-icon>
-            <v-list-item-content >
-              <v-list-item-title v-text="item.text"></v-list-item-title>
+      >  
+        <v-list>
+          <v-list-item> 
+            <v-list-item-content class="ma-0 pa-0">
+              <v-list-item-title class="mx-4 text-h6">          
+                Food Bridge
+              </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-         </v-list-item-group>
 
-      </v-list>
-    </v-navigation-drawer>
+          <v-divider></v-divider>
+        
+          <v-list-item-group
+            v-model="selectedItem"
+            color="primary"
+          >
+            <v-list-item
+              color="red"
+              v-for="(item, i) in items"
+              :key="i"
+              class="ma-0"
+              link router :to="item.route"
+            >
+              <v-list-item-icon>
+                <span class="material-icons">
+                  {{ item.icon }}
+                </span>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title v-text="item.text"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-item-group>
+
+        </v-list>
+      </v-navigation-drawer>
 
     <v-app-bar     
       min-height="60"
       shrink-on-scroll
-      fade-img-on-scroll 
       :height="$vuetify.breakpoint.height" 
       scroll-off-screen
-      hide-on-scroll
       color="#EDD1CB"
       light
       style="border-bottom: 1px solid #760933;"    
@@ -85,9 +82,9 @@
         depressed 
         color="#760933" 
         light outlined rounded class="mx-2"
-        link router to="/checkfood"
+        link router to="/signup"
         >
-        CHECK FOOD
+        SIGN UP
         </v-btn>
 
         <v-btn
@@ -100,24 +97,7 @@
         >
           ABOUT    
         </v-btn>
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-responsive :max-width="$vuetify.breakpoint.mdAndUp?260:150" class="mt-2" >
-          <v-text-field
-            dense
-            hide-details
-            background-color="#760933"
-            rounded
-            color="white"
-            solo
-            dark
-            placeholder="search location"
-            class="carouseltext"
-            @change="searchFood"
-          ></v-text-field>
-        </v-responsive>
+      </div>      
       </v-app-bar>
     </div>
 </template>
@@ -135,16 +115,11 @@ import HomeCarousel from '../views/HomeCarousel'
         items: [
           { text: 'Home',icon:'home', route:'/' },
           { text: 'Login',icon:'person_pin', route:'/login' },
-          { text: 'CheckFood',icon:'rice_bowl', route:'/checkfood' },
+          { text: 'SignUp',icon:'person_add', route:'/signup' },
           { text: 'About',icon:'info',route:'/about'},
         ],
         drawer:false,
       }
     },
-    methods:{
-      searchFood(){
-
-      }
-    }
   }
 </script>

@@ -7,7 +7,7 @@
             <v-row :justify="$vuetify.breakpoint.mdAndUp?space-between:center" align="center">
 
                 <v-col md="3" lg="3" xl="3" sm="12" cols="12">
-                    <h2 class="white--text font-weight-light">Food Bridge</h2>
+                    <h2 class="white--text font-weight-light" >Food Bridge</h2>
                 </v-col>
 
                 <v-col></v-col>
@@ -82,11 +82,11 @@
                         CONTACT
                     </v-btn>  
 
-                    <v-btn class="mx-1 my-3 black white--text mx-3" rounded>
+                    <v-btn class="mx-1 my-3 black white--text mx-3" link router to="/" rounded>
                         DONATE
                     </v-btn>
 
-                    <v-btn class="mx-1 my-3 black white--text mx-3" rounded>
+                    <v-btn class="mx-1 my-3 black white--text mx-3" link router to="/about" rounded>
                         ABOUT
                     </v-btn>
 

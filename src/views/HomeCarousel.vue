@@ -30,24 +30,22 @@
 
                           </v-col>
                         </v-row>
-                        <v-row class="mx-5">
+                        <v-row class="mx-5 my-8">
                           <v-btn
                             rounded
-                            color="green lighten-3"
-                            light
+                            dark
                             depressed
                             x-large
-                            class="pa-10 mx-3 headline"                                  
+                            class="pa-8 mx-0 headline btnColor"                                  
                           >
                             I have Food
                           </v-btn>
                           <v-btn
-                            rounded
-                            color="green lighten-3"
-                            light
+                            rounded                            
+                            dark
                             depressed
                             x-large
-                            class="pa-10 mx-3 headline"                                 
+                            class="pa-8 mx-8 headline btnColor"                                 
                           >
                             I want Food
                           </v-btn>
@@ -58,8 +56,7 @@
                 <v-carousel-item>
                   <v-container :height="$vuetify.breakpoint.height/5*3" 
                   elevation-5
-                  >
-                  
+                  >                  
                   </v-container>
                 </v-carousel-item>
               </v-carousel>
@@ -114,5 +111,13 @@ font-family: 'Dela Gothic One', cursive;
 font-size: 60px;
 color: darkgreen;
 background: white;
+}
+.btnColor{
+  color: white;
+  background: #11998e;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #38ef7d, #11998e);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #38ef7d, #11998e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
 }
 </style>

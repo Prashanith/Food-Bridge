@@ -1,8 +1,8 @@
 <template>    
     <v-container class="fill-height backGroundImg" fluid>        
         <v-row
-        align="center"
-        justify="center"
+            align="center"
+            justify="center"
         > 
         <v-col
         cols="12"
@@ -11,15 +11,14 @@
         >
             <v-card  min-height="335" class="cardColor" elevation="0" >
                 <v-toolbar color="#6A3D3B" dark height="60" elevation="0">
-                    <v-toolbar-title class="d-flex align-center justify-center text-center">LOGIN</v-toolbar-title>
+                    <v-toolbar-title class="d-flex align-center justify-center text-center">SIGN UP</v-toolbar-title>
                 </v-toolbar>
                 <v-card-text class="py-5">
-                <v-form ref="form" :lazy-validation="true">
+                <v-form ref="signUpForm" :lazy-validation="true">
                     <v-text-field
                     v-model="email"
                     label="Email"
-                    name="login"
-                    
+                    name="login"                    
                     type="text"
                     :rules="emailRules"
                     outlined
@@ -29,7 +28,7 @@
 
                     <v-text-field
                         v-model="password"                        
-                        :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+                        :append-icon="show? 'mdi-eye' : 'mdi-eye-off'"
                         required
                         :rules="passwordRules"
                         :type="show? 'text' : 'password'"
@@ -42,13 +41,13 @@
                         @click:append="show = !show"
                         ></v-text-field>
                         <v-card-actions >
-                            <v-btn color="#6A3D3B" depressed block class="white--text px-4" @click="validate()" rounded>Login</v-btn>
+                            <v-btn color="#6A3D3B" depressed block class="white--text px-4" @click="validate()" rounded>Sign Up</v-btn>
                         </v-card-actions>
                 </v-form>
                 </v-card-text>
                 
-                <blockquote class="text-center subtitle-1">Not a User ?
-                    <router-link :to="{ name:'SignUp'}">Register Here</router-link>
+                <blockquote class="text-center subtitle-1">Already a User ?
+                    <router-link :to="{ name:'Login'}">Login</router-link>
                 </blockquote>
             </v-card>            
         </v-col>
@@ -74,27 +73,31 @@
         </template>
         </v-snackbar>
     </div>
+
     </v-container>
+
+
+    
    
 </template>
 <script>
 import backgroundUrl from '../assets/app.jpg'
 import { auth } from '../firebaseInit'
-
 export default {
   data() {
     return {
+      snackbar: false,
+      message:'',
+      timeout: 2000,
+          
       backgroundUrl,
       show: false,
       email:'',
       password: '',
-      snackbar:false,
-      message:'',
-      timeout: 2000,
       emailRules: [
         value => !!value || 'Email Required.',
         value => (value || '').length <= 50 || 'Max 50 characters',
-        value => {
+        value => { 
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
           return pattern.test(value) || 'Invalid e-mail.'
         },
@@ -106,44 +109,34 @@ export default {
         ],
     }
   },
-  created(){
-    if(auth.currentUser){
-      
-      console.log(auth.currentUser);
-      this.$store.commit('signIn');
-      this.$store.commit('addUserId',auth.currentUser.uid);
-      this.$router.push('/newsfeed') 
-
-    }
-  },
   methods: {
-      reset () {
-        this.$refs.form.reset()
-      },
-      resetValidation () {
-        this.$refs.form.resetValidation()
-      },
-
-      validate (e) {
-        if(this.$refs.form.validate()){
+        validate (e) {
+            if(this.$refs.signUpForm.validate()){
             auth
-            .signInWithEmailAndPassword(this.email, this.password)
+            .createUserWithEmailAndPassword(this.email, this.password)
             .then(
             user => {     
-                this.$store.commit('signIn');
-                this.$store.commit('addUserId',user.user.uid);
-                this.$router.push('/newsfeed')                
+                this.message=`You are now registered up with ${user.user.email}`;                   
+                 this.snackbar=true;   
+                setTimeout(()=>{},2400)
+                this.$refs.signUpForm.reset();
+                auth.signOut;
+                auth.updateCurrentUser(null)
+                this.$router.push('/');
+                
             },
             err => {
-              this.message=`Error Occured while signing in ${err.message}`; 
+                this.message=`Error Occured Signing Up ${err.message}`; 
                 setTimeout(()=>{
                     this.snackbar=true;   
-                },1000);     
+                },2400);
+                this.email='';
+                this.password='';                
             });
             e.preventDefault();
-            } 
+            }            
+        },
       },
-    },
 }
 </script>
 

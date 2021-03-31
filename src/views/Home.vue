@@ -16,7 +16,7 @@
 
               <div class="d-flex justify-center subtitle-1 my-4 font-weight-light">
                 Click                 
-                <a href="" class="grey--text lighten-4 px-1">here</a>
+                <router-link link router to="/about" class="grey--text lighten-4 px-1">here</router-link>
                 to learn more about what we do 
               </div>            
             </v-card>         
@@ -30,28 +30,34 @@
                 Our Goals
               </v-card-title>
               <v-card-text class="d-flex flex-row">
-                <v-card  v-for="n in 3" :key="n" class="ma-3 py-3 px-2" outlined>
+                <v-row>
+                  <v-col v-for="goal in goals" :key="goal.title">
+                    <v-card class="ma-3 py-3 px-2" height="400" outlined>
                   <v-card-title class="d-flex justify-center align-center mx-3">
                     <v-btn
-                            class="mx-2 "
-                            fab
-                            dark                            
-                            color="#c3e6fc"
-                            depressed
-                            >
-                            <v-icon large class="px-5" color="white" @click="null">
-                            mdi-twitter
-                            </v-icon>
-                            </v-btn>
+                    class="mx-2"
+                    fab
+                    dark                            
+                    color="#c3e6fc"
+                    depressed
+                    >
+                    <span class="material-icons black--text">
+                    {{goal.icon}}
+                    </span>
+                  </v-btn>
 
                   </v-card-title>
-                  <v-card-subtitle>
-
+                  <v-card-subtitle class="my-2 text-center" >
+                    {{ goal.title }}                    
                   </v-card-subtitle>
-                  <v-card-text class="subtitle-1">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore ut tenetur ea doloribus praesentium consectetur odit recusandae consequuntur! Animi in, placeat architecto debitis ratione deleniti. Quam eligendi asperiores cupiditate voluptatem.
+                  <v-card-text class="subtitle-1 text-center"> 
+                    {{ goal.description }}                   
                   </v-card-text>
                 </v-card>
+                    
+                  </v-col>
+                </v-row>
+                
 
                 
               </v-card-text>
@@ -77,6 +83,23 @@ export default {
   },
   data:()=>{
     return{
+      goals:[
+        {
+          'icon':'dinner_dining',
+          'title':'UN SDG Zero Hunger',
+          'description':'We are promoting sustainable development goal set by the United Nations towards a better planet by supplying food to the hungry'
+        },
+        {
+          'icon':'spa',
+          'title':'Responsible consumption and production',
+          'description':'Food sector contributes to almost 22% of global greenhouse gases. We focus towards sustainable consumption of food by putting the extra food from restuarants or households to use.',
+        },
+        {
+          'icon':'health_and_safety',
+          'title':'Good health and well being',
+          'description':'1.3 billion tonnes of food is wasted every year, while almost 2 billion people go undernourished and hungry. We aim to provide health to them by providing them with everyday good at the least.',
+        }
+      ]
       
        
     }

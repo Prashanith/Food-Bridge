@@ -6,7 +6,8 @@ import Login from '../views/Login.vue'
 import Newsfeed from '../views/Newsfeed.vue'
 import Profile from '../views/Profile.vue'
 import About from '../views/About.vue'
-
+import SignUp from '../views/SignUp.vue'
+import { auth } from '../firebaseInit'
 
 Vue.use(VueRouter)
 
@@ -17,26 +18,32 @@ const routes = [
     component: Home
   },
   {
-    path: '/about',
-    name: 'About',
-    component:About
-  },
-  {
     path: '/Login',
     name: 'Login',
-    component: Login
+    component: Login,
   },
   {
     path: '/Newsfeed',
-    name: 'About',
-    component: Newsfeed
+    name: 'Newsfeed',
+    component: Newsfeed,
+    meta: { requiresAuth: true }
   },
   {
     path: '/Profile',
     name: 'Profile',
-    component: Profile
+    component: Profile,
+    meta: { requiresAuth: true }  
   },
-
+  {
+    path: '/signup',
+    name: 'SignUp',
+    component: SignUp
+  },
+  {
+    path: '/about',
+    name: 'About',
+    component:About
+  },
 ]
 
 const router = new VueRouter({
@@ -44,5 +51,20 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 });
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!auth.currentUser ) {
+      next({
+        path: '/login',
+        query: { redirect: to.fullPath }
+      })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
+})
 
 export default router
